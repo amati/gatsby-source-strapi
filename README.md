@@ -17,8 +17,20 @@ plugins: [
       apiURL: `http://localhost:1337`,
       queryLimit: 1000, // Default to 100
       contentTypes: [`article`, `user`],
+      //default data for content type, if response is 404
+      singleTypesDefaultData: {
+        `article`:{
+          //default data
+        }
+      },
       //If using single types place them in this array.
       singleTypes: [`home-page`, `contact`],
+      //default data for single content type, if response is 404
+      singleTypesDefaultData: {
+        `home-page`:{
+          //default data
+        }
+      },
       // Possibility to login with a strapi user, when content types are not publically available (optional).
       loginData: {
         identifier: "",
