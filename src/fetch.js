@@ -2,7 +2,16 @@ import axios from 'axios'
 import { isObject, startsWith, endsWith, forEach, set, castArray } from 'lodash'
 import pluralize from 'pluralize'
 
-module.exports = async ({ apiURL, contentType, singleType, jwtToken, queryLimit, reporter }) => {
+module.exports = async ({
+  apiURL,
+  contentType,
+  contentTypesDefaultData,
+  singleType,
+  singleTypesDefaultData,
+  jwtToken,
+  queryLimit,
+  reporter,
+}) => {
   // Define API endpoint.
   let apiBase = singleType ? `${apiURL}/${singleType}` : `${apiURL}/${pluralize(contentType)}`
 
@@ -14,7 +23,13 @@ module.exports = async ({ apiURL, contentType, singleType, jwtToken, queryLimit,
     const { data } = await axios(apiEndpoint, addAuthorizationHeader({}, jwtToken))
     return castArray(data).map(clean)
   } catch (error) {
-    reporter.panic(`Failed to fetch data from Strapi`, error)
+    let defaultData = singleType ? singleTypesDefaultData[singleType] : contentTypesDefaultData[pluralize(contentType)]
+    if (error.response.status === 404 && defaultData) {
+      reporter.info(`Use Default Data for singleType - ${singleType}`)
+      return castArray(defaultData).map(clean)
+    } else {
+      reporter.panic(`Failed to fetch data from Strapi`, error)
+    }
   }
 }
 

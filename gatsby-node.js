@@ -46,8 +46,12 @@ exports.sourceNodes = function () {
         apiURL = _ref3$apiURL === undefined ? 'http://localhost:1337' : _ref3$apiURL,
         _ref3$contentTypes = _ref3.contentTypes,
         contentTypes = _ref3$contentTypes === undefined ? [] : _ref3$contentTypes,
+        _ref3$contentTypesDef = _ref3.contentTypesDefaultData,
+        contentTypesDefaultData = _ref3$contentTypesDef === undefined ? {} : _ref3$contentTypesDef,
         _ref3$singleTypes = _ref3.singleTypes,
         singleTypes = _ref3$singleTypes === undefined ? [] : _ref3$singleTypes,
+        _ref3$singleTypesDefa = _ref3.singleTypesDefaultData,
+        singleTypesDefaultData = _ref3$singleTypesDefa === undefined ? {} : _ref3$singleTypesDefa,
         _ref3$loginData = _ref3.loginData,
         loginData = _ref3$loginData === undefined ? {} : _ref3$loginData,
         _ref3$queryLimit = _ref3.queryLimit,
@@ -78,6 +82,7 @@ exports.sourceNodes = function () {
               return (0, _fetch2.default)({
                 apiURL: apiURL,
                 contentType: contentType,
+                contentTypesDefaultData: contentTypesDefaultData,
                 jwtToken: jwtToken,
                 queryLimit: queryLimit,
                 reporter: reporter
@@ -90,6 +95,7 @@ exports.sourceNodes = function () {
               return (0, _fetch2.default)({
                 apiURL: apiURL,
                 singleType: singleType,
+                singleTypesDefaultData: singleTypesDefaultData,
                 jwtToken: jwtToken,
                 queryLimit: queryLimit,
                 reporter: reporter
