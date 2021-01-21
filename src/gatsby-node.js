@@ -6,7 +6,15 @@ import authentication from './authentication'
 
 exports.sourceNodes = async (
   { store, actions, cache, reporter, getNode, getNodes },
-  { apiURL = 'http://localhost:1337', contentTypes = [], singleTypes = [], loginData = {}, queryLimit = 100 }
+  {
+    apiURL = 'http://localhost:1337',
+    contentTypes = [],
+    contentTypesDefaultData = {},
+    singleTypes = [],
+    singleTypesDefaultData = {},
+    loginData = {},
+    queryLimit = 100,
+  }
 ) => {
   const { createNode, deleteNode, touchNode } = actions
 
@@ -22,6 +30,7 @@ exports.sourceNodes = async (
     fetchData({
       apiURL,
       contentType,
+      contentTypesDefaultData,
       jwtToken,
       queryLimit,
       reporter,
@@ -33,6 +42,7 @@ exports.sourceNodes = async (
     fetchData({
       apiURL,
       singleType,
+      singleTypesDefaultData,
       jwtToken,
       queryLimit,
       reporter,

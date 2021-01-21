@@ -24,12 +24,14 @@ module.exports = function () {
   var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(_ref2) {
     var apiURL = _ref2.apiURL,
         contentType = _ref2.contentType,
+        contentTypesDefaultData = _ref2.contentTypesDefaultData,
         singleType = _ref2.singleType,
+        singleTypesDefaultData = _ref2.singleTypesDefaultData,
         jwtToken = _ref2.jwtToken,
         queryLimit = _ref2.queryLimit,
         reporter = _ref2.reporter;
 
-    var apiBase, apiEndpoint, _ref3, data;
+    var apiBase, apiEndpoint, _ref3, data, defaultData;
 
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -54,10 +56,20 @@ module.exports = function () {
           case 11:
             _context.prev = 11;
             _context.t0 = _context['catch'](3);
+            defaultData = singleType ? singleTypesDefaultData[singleType] : contentTypesDefaultData[(0, _pluralize2.default)(contentType)];
 
+            if (!(_context.t0.response.status === 404 && defaultData)) {
+              _context.next = 19;
+              break;
+            }
+
+            reporter.info('Use Default Data for singleType - ' + singleType);
+            return _context.abrupt('return', (0, _lodash.castArray)(defaultData).map(clean));
+
+          case 19:
             reporter.panic('Failed to fetch data from Strapi', _context.t0);
 
-          case 14:
+          case 20:
           case 'end':
             return _context.stop();
         }
