@@ -4,6 +4,10 @@ var _regenerator = require('babel-runtime/regenerator');
 
 var _regenerator2 = _interopRequireDefault(_regenerator);
 
+var _keys = require('babel-runtime/core-js/object/keys');
+
+var _keys2 = _interopRequireDefault(_keys);
+
 var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
 
 var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
@@ -31,7 +35,7 @@ module.exports = function () {
         queryLimit = _ref2.queryLimit,
         reporter = _ref2.reporter;
 
-    var apiBase, apiEndpoint, _ref3, data, defaultData;
+    var apiBase, apiEndpoint, _ref3, data, defaultData, isDefaultData;
 
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -57,19 +61,20 @@ module.exports = function () {
             _context.prev = 11;
             _context.t0 = _context['catch'](3);
             defaultData = singleType ? singleTypesDefaultData[singleType] : contentTypesDefaultData[(0, _pluralize2.default)(contentType)];
+            isDefaultData = (0, _keys2.default)(defaultData).length !== 0 && defaultData.constructor === Object;
 
-            if (!(_context.t0.response.status === 404 && defaultData)) {
-              _context.next = 19;
+            if (!(_context.t0.response.status === 404 && isDefaultData)) {
+              _context.next = 20;
               break;
             }
 
             reporter.info('Use Default Data for singleType - ' + singleType);
             return _context.abrupt('return', (0, _lodash.castArray)(defaultData).map(clean));
 
-          case 19:
+          case 20:
             reporter.panic('Failed to fetch data from Strapi', _context.t0);
 
-          case 20:
+          case 21:
           case 'end':
             return _context.stop();
         }
