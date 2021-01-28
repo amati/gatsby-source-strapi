@@ -61,7 +61,7 @@ module.exports = function () {
             _context.prev = 11;
             _context.t0 = _context['catch'](3);
             defaultData = singleType ? singleTypesDefaultData[singleType] : contentTypesDefaultData[(0, _pluralize2.default)(contentType)];
-            isDefaultData = (0, _keys2.default)(defaultData).length !== 0 && defaultData.constructor === Object;
+            isDefaultData = (0, _keys2.default)(defaultData).length !== 0;
 
             if (!(_context.t0.response.status === 404 && isDefaultData)) {
               _context.next = 20;

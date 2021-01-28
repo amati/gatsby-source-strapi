@@ -24,8 +24,7 @@ module.exports = async ({
     return castArray(data).map(clean)
   } catch (error) {
     let defaultData = singleType ? singleTypesDefaultData[singleType] : contentTypesDefaultData[pluralize(contentType)]
-    let isDefaultData = Object.keys(defaultData).length !== 0 && defaultData.constructor === Object
-
+    let isDefaultData = Object.keys(defaultData).length !== 0
     if (error.response.status === 404 && isDefaultData) {
       reporter.info(`Use Default Data for singleType - ${singleType}`)
       return castArray(defaultData).map(clean)
