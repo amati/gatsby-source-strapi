@@ -45,8 +45,10 @@ module.exports = function () {
             apiBase = singleType ? apiURL + '/' + singleType : apiURL + '/' + (0, _pluralize2.default)(contentType);
             apiEndpoint = apiBase + '?_limit=' + queryLimit;
 
+            // reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)
 
-            reporter.info('Starting to fetch data from Strapi - ' + apiEndpoint);
+            reporter.info('Starting to fetch - ' + apiEndpoint);
+            // console.log(apiEndpoint)
 
             _context.prev = 3;
             _context.next = 6;

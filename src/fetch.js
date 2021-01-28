@@ -17,7 +17,9 @@ module.exports = async ({
 
   const apiEndpoint = `${apiBase}?_limit=${queryLimit}`
 
-  reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)
+  // reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)
+  reporter.info('Starting to fetch - ' + apiEndpoint)
+  // console.log(apiEndpoint)
 
   try {
     const { data } = await axios(apiEndpoint, addAuthorizationHeader({}, jwtToken))
@@ -25,6 +27,7 @@ module.exports = async ({
   } catch (error) {
     let defaultData = singleType ? singleTypesDefaultData[singleType] : contentTypesDefaultData[pluralize(contentType)]
     let isDefaultData = Object.keys(defaultData).length !== 0
+
     if (error.response.status === 404 && isDefaultData) {
       reporter.info(`Use Default Data for singleType - ${singleType}`)
       return castArray(defaultData).map(clean)
