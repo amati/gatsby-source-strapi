@@ -33,6 +33,7 @@ module.exports = function () {
         singleTypesDefaultData = _ref2.singleTypesDefaultData,
         jwtToken = _ref2.jwtToken,
         queryLimit = _ref2.queryLimit,
+        isDraftView = _ref2.isDraftView,
         reporter = _ref2.reporter;
 
     var apiBase, apiEndpoint, _ref3, data, defaultData, isDefaultData;
@@ -45,43 +46,46 @@ module.exports = function () {
             apiBase = singleType ? apiURL + '/' + singleType : apiURL + '/' + (0, _pluralize2.default)(contentType);
             apiEndpoint = apiBase + '?_limit=' + queryLimit;
 
-            // reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)
+            if (isDraftView) {
+              apiEndpoint += '&_publicationState=preview';
+            }
 
+            // reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)
             reporter.info('Starting to fetch - ' + apiEndpoint);
             // console.log(apiEndpoint)
 
-            _context.prev = 3;
-            _context.next = 6;
+            _context.prev = 4;
+            _context.next = 7;
             return (0, _axios2.default)(apiEndpoint, addAuthorizationHeader({}, jwtToken));
 
-          case 6:
+          case 7:
             _ref3 = _context.sent;
             data = _ref3.data;
             return _context.abrupt('return', (0, _lodash.castArray)(data).map(clean));
 
-          case 11:
-            _context.prev = 11;
-            _context.t0 = _context['catch'](3);
+          case 12:
+            _context.prev = 12;
+            _context.t0 = _context['catch'](4);
             defaultData = singleType ? singleTypesDefaultData[singleType] : contentTypesDefaultData[(0, _pluralize2.default)(contentType)];
             isDefaultData = (0, _keys2.default)(defaultData).length !== 0;
 
             if (!(_context.t0.response.status === 404 && isDefaultData)) {
-              _context.next = 20;
+              _context.next = 21;
               break;
             }
 
             reporter.info('Use Default Data for singleType - ' + singleType);
             return _context.abrupt('return', (0, _lodash.castArray)(defaultData).map(clean));
 
-          case 20:
+          case 21:
             reporter.panic('Failed to fetch data from Strapi', _context.t0);
 
-          case 21:
+          case 22:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, undefined, [[3, 11]]);
+    }, _callee, undefined, [[4, 12]]);
   }));
 
   return function (_x) {
