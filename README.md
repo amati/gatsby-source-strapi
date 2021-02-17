@@ -16,9 +16,10 @@ plugins: [
     options: {
       apiURL: `http://localhost:1337`,
       queryLimit: 1000, // Default to 100
+      isDraftView: true, // if you want to crawl including draft docs. set true (default: false)
       contentTypes: [`article`, `user`],
       //default data for content type, if response is 404
-      singleTypesDefaultData: {
+      contentTypesDefaultData: {
         `article`:{
           //default data
         }
@@ -68,7 +69,7 @@ To query images you can do the following:
       node {
         id
         singleImage {
-         publicURL
+          publicURL
         }
         multipleImages {
           localFile {

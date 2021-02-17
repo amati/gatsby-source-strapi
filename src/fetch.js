@@ -10,12 +10,16 @@ module.exports = async ({
   singleTypesDefaultData,
   jwtToken,
   queryLimit,
+  isDraftView,
   reporter,
 }) => {
   // Define API endpoint.
   let apiBase = singleType ? `${apiURL}/${singleType}` : `${apiURL}/${pluralize(contentType)}`
 
-  const apiEndpoint = `${apiBase}?_limit=${queryLimit}`
+  let apiEndpoint = `${apiBase}?_limit=${queryLimit}`
+  if (isDraftView) {
+    apiEndpoint += `&_publicationState=preview`
+  }
 
   // reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)
   reporter.info('Starting to fetch - ' + apiEndpoint)

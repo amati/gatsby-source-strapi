@@ -14,6 +14,7 @@ exports.sourceNodes = async (
     singleTypesDefaultData = {},
     loginData = {},
     queryLimit = 100,
+    isDraftView = false,
   }
 ) => {
   const { createNode, deleteNode, touchNode } = actions
@@ -33,6 +34,7 @@ exports.sourceNodes = async (
       contentTypesDefaultData,
       jwtToken,
       queryLimit,
+      isDraftView,
       reporter,
     })
   )
@@ -45,6 +47,7 @@ exports.sourceNodes = async (
       singleTypesDefaultData,
       jwtToken,
       queryLimit,
+      isDraftView,
       reporter,
     })
   )
