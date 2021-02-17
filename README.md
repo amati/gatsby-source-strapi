@@ -18,7 +18,7 @@ plugins: [
       queryLimit: 1000, // Default to 100
       contentTypes: [`article`, `user`],
       //default data for content type, if response is 404
-      singleTypesDefaultData: {
+      contentTypesDefaultData: {
         `article`:{
           //default data
         }
@@ -68,7 +68,7 @@ To query images you can do the following:
       node {
         id
         singleImage {
-         publicURL
+          publicURL
         }
         multipleImages {
           localFile {
