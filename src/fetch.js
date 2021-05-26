@@ -16,18 +16,17 @@ module.exports = async ({
   // Define API endpoint.
   let apiBase = singleType ? `${apiURL}/${singleType}` : `${apiURL}/${pluralize(contentType)}`
 
-  const requestOptions = {
-    method: 'GET',
-    url: apiBase,
-    // Place global params first, so that they can be overriden by api.qs
-    params: { _limit: queryLimit, _publicationState: isDraftView ? 'preview' : null, ...api?.qs },
-    headers: addAuthorizationHeader({}, jwtToken),
-  };
+  let apiEndpoint = `${apiBase}?_limit=${queryLimit}`
+  if (isDraftView) {
+    apiEndpoint += `&_publicationState=preview`
+  }
 
-  reporter.info('Starting to fetch from Strapi - ' + apiBase + ' with params ' + JSON.stringify(requestOptions.params))
+  // reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)
+  reporter.info('Starting to fetch - ' + apiEndpoint)
+  // console.log(apiEndpoint)
 
   try {
-    const { data } = await axios(requestOptions)
+    const { data } = await axios(apiEndpoint, addAuthorizationHeader({}, jwtToken))
     return castArray(data).map(clean)
   } catch (error) {
     let defaultData = singleType ? singleTypesDefaultData[singleType] : contentTypesDefaultData[pluralize(contentType)]
