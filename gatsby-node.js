@@ -57,7 +57,9 @@ exports.sourceNodes = function () {
         _ref3$queryLimit = _ref3.queryLimit,
         queryLimit = _ref3$queryLimit === undefined ? 100 : _ref3$queryLimit,
         _ref3$isDraftView = _ref3.isDraftView,
-        isDraftView = _ref3$isDraftView === undefined ? false : _ref3$isDraftView;
+        isDraftView = _ref3$isDraftView === undefined ? false : _ref3$isDraftView,
+        _ref3$internationalizedTypes = _ref3.internationalizedTypes,
+        internationalizedTypes = _ref3$internationalizedTypes === undefined ? [] : _ref3$internationalizedTypes;
     var createNode, deleteNode, touchNode, jwtToken, fetchActivity, contentTypePromises, singleTypePromises, entities, newNodes, existingNodes, diff;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -88,7 +90,8 @@ exports.sourceNodes = function () {
                 jwtToken: jwtToken,
                 queryLimit: queryLimit,
                 isDraftView: isDraftView,
-                reporter: reporter
+                reporter: reporter,
+                isInternationalized: _lodash.includes(internationalizedTypes, contentType)
               });
             });
 
@@ -102,7 +105,8 @@ exports.sourceNodes = function () {
                 jwtToken: jwtToken,
                 queryLimit: queryLimit,
                 isDraftView: isDraftView,
-                reporter: reporter
+                reporter: reporter,
+                isInternationalized: _lodash.includes(internationalizedTypes, singleType)
               });
             });
 

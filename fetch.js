@@ -34,7 +34,8 @@ module.exports = function () {
         jwtToken = _ref2.jwtToken,
         queryLimit = _ref2.queryLimit,
         isDraftView = _ref2.isDraftView,
-        reporter = _ref2.reporter;
+        reporter = _ref2.reporter,
+        isInternationalized = _ref2.isInternationalized;
 
     var apiBase, apiEndpoint, _ref3, data, defaultData, isDefaultData;
 
@@ -48,6 +49,10 @@ module.exports = function () {
 
             if (isDraftView) {
               apiEndpoint += '&_publicationState=preview';
+            }
+
+            if (isInternationalized) {
+              apiEndpoint += '&_locale=all'
             }
 
             // reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)
