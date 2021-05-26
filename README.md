@@ -26,6 +26,8 @@ plugins: [
       },
       //If using single types place them in this array.
       singleTypes: [`home-page`, `contact`],
+      // Assigns which types support internalization, It will perform query data from all locales.
+      internationalizedTypes: [`article`],
       //default data for single content type, if response is 404
       singleTypesDefaultData: {
         `home-page`:{
