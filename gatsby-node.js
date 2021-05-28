@@ -58,8 +58,8 @@ exports.sourceNodes = function () {
         queryLimit = _ref3$queryLimit === undefined ? 100 : _ref3$queryLimit,
         _ref3$isDraftView = _ref3.isDraftView,
         isDraftView = _ref3$isDraftView === undefined ? false : _ref3$isDraftView,
-        _ref3$internationalizedTypes = _ref3.internationalizedTypes,
-        internationalizedTypes = _ref3$internationalizedTypes === undefined ? [] : _ref3$internationalizedTypes;
+        _ref3$internationaliz = _ref3.internationalizedTypes,
+        internationalizedTypes = _ref3$internationaliz === undefined ? [] : _ref3$internationaliz;
     var createNode, deleteNode, touchNode, jwtToken, fetchActivity, contentTypePromises, singleTypePromises, entities, newNodes, existingNodes, diff;
     return _regenerator2.default.wrap(function _callee$(_context) {
       while (1) {
@@ -83,7 +83,8 @@ exports.sourceNodes = function () {
 
             // Generate a list of promises based on the `contentTypes` option.
             contentTypePromises = contentTypes.map(function (contentType) {
-              return (0, _fetch2.default)({
+              var isInternationalized = (0, _lodash.includes)(internationalizedTypes, contentType);
+              (0, _fetch2.default)({
                 apiURL: apiURL,
                 contentType: contentType,
                 contentTypesDefaultData: contentTypesDefaultData,
@@ -91,14 +92,15 @@ exports.sourceNodes = function () {
                 queryLimit: queryLimit,
                 isDraftView: isDraftView,
                 reporter: reporter,
-                isInternationalized: _lodash.includes(internationalizedTypes, contentType)
+                isInternationalized: isInternationalized
               });
             });
 
             // Generate a list of promises based on the `singleTypes` option.
 
             singleTypePromises = singleTypes.map(function (singleType) {
-              return (0, _fetch2.default)({
+              var isInternationalized = (0, _lodash.includes)(internationalizedTypes, singleType);
+              (0, _fetch2.default)({
                 apiURL: apiURL,
                 singleType: singleType,
                 singleTypesDefaultData: singleTypesDefaultData,
@@ -106,7 +108,7 @@ exports.sourceNodes = function () {
                 queryLimit: queryLimit,
                 isDraftView: isDraftView,
                 reporter: reporter,
-                isInternationalized: _lodash.includes(internationalizedTypes, singleType)
+                isInternationalized: isInternationalized
               });
             });
 

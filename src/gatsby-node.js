@@ -1,6 +1,6 @@
 import fetchData from './fetch'
 import { Node } from './nodes'
-import { capitalize } from 'lodash'
+import { capitalize, includes } from 'lodash'
 import normalize from './normalize'
 import authentication from './authentication'
 
@@ -15,6 +15,7 @@ exports.sourceNodes = async (
     loginData = {},
     queryLimit = 100,
     isDraftView = false,
+    internationalizedTypes = [],
   }
 ) => {
   const { createNode, deleteNode, touchNode } = actions
@@ -27,7 +28,8 @@ exports.sourceNodes = async (
   fetchActivity.start()
 
   // Generate a list of promises based on the `contentTypes` option.
-  const contentTypePromises = contentTypes.map(contentType =>
+  const contentTypePromises = contentTypes.map(contentType => {
+    const isInternationalized = includes(internationalizedTypes, contentType)
     fetchData({
       apiURL,
       contentType,
@@ -36,11 +38,14 @@ exports.sourceNodes = async (
       queryLimit,
       isDraftView,
       reporter,
+      isInternationalized,
     })
+  }
   )
 
   // Generate a list of promises based on the `singleTypes` option.
-  const singleTypePromises = singleTypes.map(singleType =>
+  const singleTypePromises = singleTypes.map(singleType => {
+    const isInternationalized = includes(internationalizedTypes, singleType) 
     fetchData({
       apiURL,
       singleType,
@@ -49,7 +54,9 @@ exports.sourceNodes = async (
       queryLimit,
       isDraftView,
       reporter,
+      isInternationalized,
     })
+  }
   )
 
   // Execute the promises

@@ -12,6 +12,7 @@ module.exports = async ({
   queryLimit,
   isDraftView,
   reporter,
+  isInternationalized,
 }) => {
   // Define API endpoint.
   let apiBase = singleType ? `${apiURL}/${singleType}` : `${apiURL}/${pluralize(contentType)}`
@@ -19,6 +20,9 @@ module.exports = async ({
   let apiEndpoint = `${apiBase}?_limit=${queryLimit}`
   if (isDraftView) {
     apiEndpoint += `&_publicationState=preview`
+  }
+  if (isInternationalized) {
+    apiEndpoint += '&_locale=all'
   }
 
   // reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)

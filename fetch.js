@@ -50,47 +50,46 @@ module.exports = function () {
             if (isDraftView) {
               apiEndpoint += '&_publicationState=preview';
             }
-
             if (isInternationalized) {
-              apiEndpoint += '&_locale=all'
+              apiEndpoint += '&_locale=all';
             }
 
             // reporter.info(`Starting to fetch data from Strapi - ${apiEndpoint}`)
             reporter.info('Starting to fetch - ' + apiEndpoint);
             // console.log(apiEndpoint)
 
-            _context.prev = 4;
-            _context.next = 7;
+            _context.prev = 5;
+            _context.next = 8;
             return (0, _axios2.default)(apiEndpoint, addAuthorizationHeader({}, jwtToken));
 
-          case 7:
+          case 8:
             _ref3 = _context.sent;
             data = _ref3.data;
             return _context.abrupt('return', (0, _lodash.castArray)(data).map(clean));
 
-          case 12:
-            _context.prev = 12;
-            _context.t0 = _context['catch'](4);
+          case 13:
+            _context.prev = 13;
+            _context.t0 = _context['catch'](5);
             defaultData = singleType ? singleTypesDefaultData[singleType] : contentTypesDefaultData[(0, _pluralize2.default)(contentType)];
             isDefaultData = (0, _keys2.default)(defaultData).length !== 0;
 
             if (!(_context.t0.response.status === 404 && isDefaultData)) {
-              _context.next = 21;
+              _context.next = 22;
               break;
             }
 
             reporter.info('Use Default Data for singleType - ' + singleType);
             return _context.abrupt('return', (0, _lodash.castArray)(defaultData).map(clean));
 
-          case 21:
+          case 22:
             reporter.panic('Failed to fetch data from Strapi', _context.t0);
 
-          case 22:
+          case 23:
           case 'end':
             return _context.stop();
         }
       }
-    }, _callee, undefined, [[4, 12]]);
+    }, _callee, undefined, [[5, 13]]);
   }));
 
   return function (_x) {
